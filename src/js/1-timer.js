@@ -18,9 +18,9 @@ class Timer {
       const diff = this.selectedDates - Date.now();
       daysValue.textContent = padStart(this.collectTime(diff).days);
 
-      hoursValue.textContent = this.collectTime(diff).hours;
-      minValue.textContent = this.collectTime(diff).minutes;
-      secValue.textContent = this.collectTime(diff).seconds;
+      hoursValue.textContent = padStart(this.collectTime(diff).hours);
+      minValue.textContent = padStart(this.collectTime(diff).minutes);
+      secValue.textContent = padStart(this.collectTime(diff).seconds);
     }, 1000);
   }
   cleanInterval() {
