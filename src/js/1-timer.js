@@ -24,6 +24,10 @@ class Timer {
       secValue.textContent = padStart(this.collectTime(diff).seconds);
       if (diff === 0) {
         clearInterval(this.intervalId);
+        daysValue.textContent = '00';
+        hoursValue.textContent = '00';
+        minValue.textContent = '00';
+        secValue.textContent = '00';
       }
     }, 1000);
   }
