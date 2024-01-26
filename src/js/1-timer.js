@@ -2,7 +2,6 @@ import flatpickr from 'flatpickr';
 import iziToast from 'izitoast';
 import 'flatpickr/dist/flatpickr.min.css';
 import 'izitoast/dist/css/iziToast.min.css';
-
 const startBtn = document.querySelector('button');
 const daysValue = document.querySelector('[data-days]');
 const hoursValue = document.querySelector('[data-hours]');
@@ -18,11 +17,10 @@ class Timer {
     this.intervalId = setInterval(() => {
       const diff = this.selectedDates - Date.now();
       daysValue.textContent = padStart(this.collectTime(diff).days);
-
       hoursValue.textContent = padStart(this.collectTime(diff).hours);
       minValue.textContent = padStart(this.collectTime(diff).minutes);
       secValue.textContent = padStart(this.collectTime(diff).seconds);
-      if (diff === 0) {
+      if (diff <= 0) {
         clearInterval(this.intervalId);
         daysValue.textContent = '00';
         hoursValue.textContent = '00';
@@ -32,15 +30,12 @@ class Timer {
     }, 1000);
   }
 }
-
 startBtn.addEventListener('click', () => {
   timer.start();
 });
-
 function padStart(number) {
   return number.toString().padStart(2, '0');
 }
-
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -60,10 +55,8 @@ const options = {
     }
   },
 };
-
 const input = document.querySelector('#datetime-picker');
-const fp = flatpickr('#datetime-picker', options);
-
+flatpickr('#datetime-picker', options);
 function convertMs(ms) {
   const second = 1000;
   const minute = second * 60;
@@ -72,10 +65,7 @@ function convertMs(ms) {
   const days = Math.floor(ms / day);
   const hours = Math.floor((ms % day) / hour);
   const minutes = Math.floor(((ms % day) % hour) / minute);
-
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-
   return { days, hours, minutes, seconds };
 }
-
 const timer = new Timer(convertMs);
