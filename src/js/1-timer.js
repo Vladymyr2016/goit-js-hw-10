@@ -46,10 +46,10 @@ const options = {
     if (timer.selectedDates < Date.now()) {
       startBtn.disabled = true;
       iziToast.show({
-        title: 'Hey',
+        color: 'red',
+        position: 'center',
         message: 'Please choose a date in the future',
       });
-      console.log(iziToast);
     } else {
       startBtn.disabled = false;
     }
