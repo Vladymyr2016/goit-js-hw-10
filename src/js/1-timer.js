@@ -12,6 +12,7 @@ class Timer {
   constructor(convertMs, selectedDates) {
     this.intervalId = null;
     this.collectTime = convertMs;
+    this.selectedDates = selectedDates;
   }
   start() {
     this.intervalId = setInterval(() => {
@@ -21,10 +22,10 @@ class Timer {
       hoursValue.textContent = padStart(this.collectTime(diff).hours);
       minValue.textContent = padStart(this.collectTime(diff).minutes);
       secValue.textContent = padStart(this.collectTime(diff).seconds);
+      if (diff === 0) {
+        clearInterval(this.intervalId);
+      }
     }, 1000);
-  }
-  cleanInterval() {
-    clearInterval(this.intervalId);
   }
 }
 
@@ -44,14 +45,14 @@ const options = {
   onClose(selectedDates) {
     timer.selectedDates = selectedDates[0];
     if (timer.selectedDates < Date.now()) {
-      startBtn.disabled = true;
+      startBtn.setAttribute('disabled', true);
       iziToast.show({
         color: 'red',
         position: 'center',
         message: 'Please choose a date in the future',
       });
     } else {
-      startBtn.disabled = false;
+      startBtn.removeAttribute('disabled');
     }
   },
 };
